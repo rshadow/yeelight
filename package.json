@@ -1,0 +1,33 @@
+{
+  "name": "@rshadow/yeelight",
+  "version": "0.0.1",
+  "description": "Yeelight control and discovery node for Node-RED.",
+  "main": "yeelight/yeelight.js",
+  "scripts": {
+    "test": "\"echo \\\"Error: no test specified\\\" && exit 1\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rshadow/yeelight.git"
+  },
+  "keywords": [
+    "yeelight",
+    "node-red"
+  ],
+  "author": "Roman V. Nikolaev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rshadow/yeelight/issues"
+  },
+  "homepage": "https://github.com/rshadow/yeelight#readme",
+  "node-red": {
+    "nodes": {
+      "yeelight": "yeelight/yeelight.js",
+      "yeelight-discovery": "yeelight/yeelight-discovery.js",
+      "yeelight-config": "yeelight/settings.js"
+    }
+  },
+  "dependencies": {
+    "yeelight-node": "^1.1.6"
+  }
+}
