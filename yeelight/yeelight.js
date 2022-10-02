@@ -7,9 +7,22 @@ module.exports = function (RED) {
 
         var node = this;
 
+        // Network errors handler
+        function _error(source, error) {
+            switch (error.code) {
+                case 'EHOSTUNREACH':
+                    node.status({ fill: "grey", shape: "ring", text: "offline" });
+                    break;
+                default:
+                    node.error(`${source}: ${error}`);
+                    node.status({ fill: "red", shape: "dot", text: "error" });
+                    break;
+            }
+        }
+
         try {
             // Initial status
-            node.status({ fill: "grey", shape: "ring", text: "not connected" });
+            node.status({ fill: "grey", shape: "ring", text: "offline" });
 
             node.device = RED.nodes.getNode(config.device);
 
@@ -20,28 +33,20 @@ module.exports = function (RED) {
                 node.status({ fill: "green", shape: "dot", text: "connected" });
             });
             node.device.yeelight.client.on('error', (error) => {
-                node.error(`error: ${error}`);
-                node.status({ fill: "red", shape: "dot", text: "error" });
+                _error('error', error);
             });
             node.device.yeelight.client.on('lookup', (error, address, family, host) => {
-                node.debug(`lookup: ${error}`);
-                if (error) {
-                    node.status({ fill: "red", shape: "dot", text: "error" });
-                } else {
-                    node.status({ fill: "red", shape: "dot", text: "error" });
-                }
+                _error('lookup', error);
             });
             node.device.yeelight.client.on('close', (hadError) => {
                 node.debug(`close: ${hadError ? 'error' : 'ok'}`);
-                if (hadError) {
-                    node.status({ fill: "red", shape: "dot", text: "error" });
-                } else {
-                    node.status({ fill: "grey", shape: "ring", text: "not connected" });
+                if (!hadError) {
+                    node.status({ fill: "grey", shape: "ring", text: "offline" });
                 }
             });
             node.device.yeelight.client.on('end', () => {
                 node.trace('end');
-                node.status({ fill: "grey", shape: "ring", text: "not connected" });
+                node.status({ fill: "grey", shape: "ring", text: "offline" });
             });
 
             // Main input
@@ -89,12 +94,12 @@ module.exports = function (RED) {
                         node.send(msg);
                     })
                     .catch(function (error) {
-                        node.error(`error: ${error} `);
+                        _error('call', error);
                     });
             });
         } catch (exception) {
             node.error(`exception: ${exception} `);
-            node.status({ fill: "red", shape: "ring", text: "communication fail" });
+            node.status({ fill: "red", shape: "ring", text: "break" });
         }
     }
 
