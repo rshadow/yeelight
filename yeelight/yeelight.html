@@ -30,7 +30,7 @@
                             },
                             {
                                 value: "bg_set_default",
-                                label: "Set default for background"
+                                label: "Set default for backlight"
                             },
                             { value: "set_name", label: "Set name" },
                             {
@@ -39,7 +39,7 @@
                             },
                             {
                                 value: "bg_set_power",
-                                label: "Set background power",
+                                label: "Set backlight power",
                             },
                             {
                                 value: "toggle",
@@ -47,7 +47,7 @@
                             },
                             {
                                 value: "bg_toggle",
-                                label: "Toggle background",
+                                label: "Toggle backlight",
                             },
                             {
                                 value: "dev_toggle",
@@ -59,7 +59,7 @@
                             },
                             {
                                 value: "bg_set_bright",
-                                label: "Brightness of background",
+                                label: "Brightness of backlight",
                             },
                             {
                                 value: "set_scene",
@@ -91,7 +91,7 @@
                             },
                             {
                                 value: "bg_set_hsv",
-                                label: "Set background hue color",
+                                label: "Set backlight hue color",
                             },
                             { value: "set_adjust", label: "Agjust set" },
                             //{ value: "adjust_bright", label: "Adjust bright" },
@@ -156,6 +156,77 @@
 
 </script>
 
-<script type="text/html" data-help-name="yeelight">
-    <p>Yeelight control and discovery node for Node-RED.</p>
+<script type="text/markdown" data-help-name="yeelight">
+Yeelight control and discovery node for Node-RED.
+
+### Inputs
+
+: payload (any)             :  the payload of the command.
+
+
+### Outputs
+
+: payload (object)          : command result.
+
+### Details
+
+#### Methods
+
+* Get properties (get_prop) - get the value of one or more properties. One of
+the following values is available for `msg.payload`:
+  * `name` - device name
+  * `power` - device status [on|off]
+  * `bright`
+  * `rgb`
+  * `ct`
+  * `hue`
+  * `sat`
+  * `color_mode`
+  * `delayoff`
+  * `flowing`
+  * `flow_params`
+  * `music_on`
+* Set default (set_default) - save current settings as default. The default
+    settings are applied when the device is powered on. No parameters required.
+* Set name (set_name) - set persistent device name
+* Set power (set_power) - turn the device `on` or `off`
+* Toggle main (toggle) - switch device power. No parameters required.
+* Brightness (set_bright)
+* Bundle scene (set_scene_bundle)
+* Custom scene (set_scene)
+* Scene: **Moon light** - preset moon light mode
+* Start color flow (start_cf)
+* Stop color flow (stop_cf)
+* Set color temperature (set_ct_abx)
+* Set color (set_rgb)
+* Set hue color (set_hsv)
+* Agjust set (set_adjust)
+* ~~Adjust bright (adjust_bright)~~
+* ~~Adjust color temperature (adjust_ct)~~
+* Set default for backlight (bg_set_default) - save current backlight settings
+    as default. The default settings are applied when the device is powered on.
+    No parameters required.
+* Set backlight power (bg_set_power) - turn the backlight `on` or `off`
+* Toggle backlight (bg_toggle) - switch backlight power. No parameters required.
+* Toggle all (dev_toggle) - switch both power. No parameters required.
+* Backlight brightness (bg_set_bright)
+* Set backlight hue color (bg_set_hsv)
+* ~~Set color of backlight (bg_set_rgb)~~
+* ~~Backlight adjust set (bg_set_adjust)~~
+* ~~Backlight adjust bright (bg_adjust_bright)~~
+* ~~Backlight adjust color temperature (bg_adjust_ct)~~
+* ~~Backlight adjust color (bg_adjust_color)~~
+* ~~Set color temperature for backlight (bg_set_ct_abx)~~
+* ~~Start backlight color flow (bg_start_cf)~~
+* ~~Stop backlight color flow (bg_stop_cf)~~
+* Cron add (cron_add)
+* Cron get (cron_get)
+* Cron del (cron_del)
+* Music server (set_music)
+
+### References
+
+- Project on [GitHub](https://github.com/rshadow/yeelight)
+- Based on [yeelight-node](https://github.com/thomas-bouvier/yeelight-node)
+
 </script>

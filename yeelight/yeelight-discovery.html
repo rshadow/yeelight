@@ -23,6 +23,67 @@
     </div>
 </script>
 
-<script type="text/html" data-help-name="yeelight-discovery">
-    <p>Finds and shows all Yeelight devices in the local network.</p>
+<script type="text/markdown" data-help-name="yeelight-discovery">
+Finds and shows all Yeelight devices in the local network.
+
+### Inputs
+
+: payload (boolean) :  enable or disable the discovery process.
+
+
+### Outputs
+
+: payload (json) : shows properties of responding devices.
+
+### Details
+
+Descriptions of responding devices will be received in the `msg.payload`.
+Responses can be repeated while the search is in progress.
+
+Example:
+```json
+{
+    "id":126569818,
+    "ip":"192.168.1.120",
+    "port":"55443",
+    "name":"",
+    "model":"ceiling9",
+    "fw_ver":"21",
+    "methods":[
+        "get_prop",
+        "set_default",
+        "set_power",
+        "toggle",
+        "set_bright",
+        "set_scene",
+        "cron_add",
+        "cron_get",
+        "cron_del",
+        "start_cf",
+        "stop_cf",
+        "set_ct_abx",
+        "set_name",
+        "set_adjust",
+        "adjust_bright",
+        "adjust_ct"
+    ],
+    "state":{
+        "on":true,
+        "brightness":"100",
+        "color_mode":"2",
+        "color_temp":"3500",
+        "rgb":"0",
+        "hue":"0",
+        "sat":"0"
+    },
+    "client":"[internal]",
+    "connected":false
+}
+```
+
+### References
+
+ - Project on [GitHub](https://github.com/rshadow/yeelight)
+ - Based on [yeelight-node](https://github.com/thomas-bouvier/yeelight-node)
+
 </script>
