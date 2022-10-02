@@ -40,7 +40,7 @@ module.exports = function (RED) {
                 }
             });
             node.device.yeelight.client.on('end', () => {
-                node.debug('end');
+                node.trace('end');
                 node.status({ fill: "grey", shape: "ring", text: "not connected" });
             });
 
@@ -81,12 +81,11 @@ module.exports = function (RED) {
                 if (!Array.isArray(params)) params = [params];
 
                 // Send command
-                node.debug(`call: ${method}(${params})`);
+                node.trace(`call: ${method}(${params})`);
                 node.device.yeelight[method](...params)
                     .then(function (data) {
                         msg.payload = JSON.parse(data);
-                        node.debug(`complete: ${msg.payload.result} `)
-                        node.trace(`msg:${JSON.stringify(msg)} `);
+                        node.trace(`complate:${JSON.stringify(msg)} `);
                         node.send(msg);
                     })
                     .catch(function (error) {
