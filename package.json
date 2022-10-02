@@ -24,7 +24,7 @@
     "nodes": {
       "yeelight": "yeelight/yeelight.js",
       "yeelight-discovery": "yeelight/yeelight-discovery.js",
-      "yeelight-config": "yeelight/settings.js"
+      "yeelight-config": "yeelight/yeelight-device.js"
     }
   },
   "dependencies": {

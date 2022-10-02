@@ -3,22 +3,157 @@
         category: 'yeelight',
         color: '#d66b70',
         defaults: {
-            name: { value: "" }
+            name: { value: "" },
+            device: { value: "", required: true, type: "yeelight-device" },
+            method: { value: "get_prop", required: true },
+            payload: { value: "payload" },
+            payloadType: {
+                value: 'msg',
+            },
         },
         inputs: 1,
         outputs: 1,
         icon: "light.svg",
         label: function () {
             return this.name || "yeelight";
+        },
+        oneditprepare: function () {
+            $("#node-input-method").typedInput({
+                types: [
+                    {
+                        value: "method",
+                        options: [
+                            { value: "get_prop", label: "Get properties" },
+                            {
+                                value: "set_default",
+                                label: "Set default"
+                            },
+                            {
+                                value: "bg_set_default",
+                                label: "Set default for background"
+                            },
+                            { value: "set_name", label: "Set name" },
+                            {
+                                value: "set_power",
+                                label: "Set power",
+                            },
+                            {
+                                value: "bg_set_power",
+                                label: "Set background power",
+                            },
+                            {
+                                value: "toggle",
+                                label: "Toggle main",
+                            },
+                            {
+                                value: "bg_toggle",
+                                label: "Toggle background",
+                            },
+                            {
+                                value: "dev_toggle",
+                                label: "Toggle all",
+                            },
+                            {
+                                value: "set_bright",
+                                label: "Brightness",
+                            },
+                            {
+                                value: "bg_set_bright",
+                                label: "Brightness of background",
+                            },
+                            {
+                                value: "set_scene",
+                                label: "Custom scene",
+                            },
+                            {
+                                value: "#moon",
+                                label: "Scene: Moon light",
+                            },
+                            {
+                                value: "start_cf",
+                                label: "Start color flow",
+                            },
+                            {
+                                value: "stop_cf",
+                                label: "Stop color flow",
+                            },
+                            {
+                                value: "set_ct_abx",
+                                label: "Set color temperature",
+                            },
+                            {
+                                value: "set_rgb",
+                                label: "Set color",
+                            },
+                            {
+                                value: "set_hsv",
+                                label: "Set hue color",
+                            },
+                            {
+                                value: "bg_set_hsv",
+                                label: "Set background hue color",
+                            },
+                            { value: "set_adjust", label: "Agjust set" },
+                            //{ value: "adjust_bright", label: "Adjust bright" },
+                            //{
+                            //    value: "adjust_ct",
+                            //    label: "Adjust color temperature"
+                            //},
+                            {
+                                value: "cron_add",
+                                label: "Cron add",
+                            },
+                            {
+                                value: "cron_get",
+                                label: "Cron get",
+                            },
+                            {
+                                value: "cron_del",
+                                label: "Cron del",
+                            },
+                            {
+                                value: "set_music",
+                                label: "Music server"
+                            },
+                        ]
+                    }
+                ]
+            })
+            $("#node-input-payload").typedInput({
+                type: "msg",
+                types: ["msg", "flow", "global", "str", "num", "bool", "json"],
+                typeField: "#node-input-payloadType"
+            })
         }
     });
 </script>
 
 <script type="text/html" data-template-name="yeelight">
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
-    </div>
+    <fieldset>
+        <legend>Base</legend>
+        <div class="form-row">
+            <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+            <input type="text" id="node-input-name" placeholder="Name">
+        </div>
+        <div class="form-row">
+            <label for="node-input-device"><i class="fa fa-tag"></i> Device</label>
+            <input type="text" id="node-input-device">
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Control</legend>
+        <div class="form-row">
+            <label for="node-input-method"><i class="fa fa-tasks"></i> Command</label>
+            <input type="text" id="node-input-method">
+        </div>
+        <div class="form-row">
+            <label for="node-input-payload"><i class="fa fa-envelope"></i> Payload</label>
+            <input type="text" id="node-input-payload">
+            <input type="hidden" id="node-input-payloadType">
+        </div>
+    </fieldset>
+
 </script>
 
 <script type="text/html" data-help-name="yeelight">
